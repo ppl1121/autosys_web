@@ -1863,6 +1863,10 @@ ul#filters > .active > span {
     width: 85%;
 }
 
+#supplyChain-content {
+    margin: 0 auto;
+}
+
 
 
 @media (max-width: 768px) {

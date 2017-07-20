@@ -5,7 +5,9 @@ var aboutHtml = "snippets/about-snippet.html";
 var contactHtml = "snippets/contact-snippet.html";
 var jobsHtml = "snippets/jobs-snippet.html";
 var servicesHtml = "snippets/services-snippet.html";
-
+var supplyChainHtml = "snippets/supply-chain.html";
+var manufactureManagementHtml = "snippets/manufacture-management-snippet.html";
+var productAndservicesHtml = "snippets/productAndservices-snippet.html";
 
 // Convenience function for inserting innerHTML for 'select'
 var insertHtml = function (selector, html) {
@@ -41,6 +43,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
               success: function(responseText){
                           document.querySelector("#main-content")
                           .innerHTML = responseText;
+                          $("#collapsable-nav li.active").removeClass("active");
+                          $('#navHomeButton').addClass("active");
+                          $('#myCarousel').carousel();
                        }
             });
 
@@ -63,22 +68,70 @@ document.addEventListener("DOMContentLoaded", function (event) {
                        }
             });
         }
-        else if($(this).parent().attr("id") === "manufactureChainButton"){
-
+        else if($(this).parent().attr("id") === "manufactureButton"){
             $.ajax({
               type: "GET",
-              url: servicesHtml,
+              url: manufactureManagementHtml,
               dataType: "html",
               success: function(responseText){
                           document.querySelector("#main-content")
                           .innerHTML = responseText;
                            $("#collapsable-nav li.active").removeClass("active");
                            $("#manufactureButton").addClass("active");
+                           $("#supplyChainTitle a").click(function () {
+                                var ele= $(this);
+                                if($(this).attr("id") === "material") {
+                                    $("#supplyChain-content img").attr("src", "img/material.png");
+                                }
+                                else if($(this).attr("id") === "plan") {
+                                    $("#supplyChain-content img").attr("src", "img/plan.png");
+                                }
+                                else if($(this).attr("id") === "part") {
+                                    $("#supplyChain-content img").attr("src", "img/part.png");
+                                }
+                                else if($(this).attr("id") === "capacity") {
+                                    $("#supplyChain-content img").attr("src", "img/capacity.png");
+                                }
+                                else{
+                                    $("#supplyChain-content img").attr("src", "img/quality.png");
+                                }
+                            })
+                       }
+            });
+        }
+        else if($(this).parent().attr("id") === "manufactureChainButton"){
+            $.ajax({
+              type: "GET",
+              url: supplyChainHtml,
+              dataType: "html",
+              success: function(responseText){
+                          document.querySelector("#main-content")
+                          .innerHTML = responseText;
+                           $("#collapsable-nav li.active").removeClass("active");
+                           $("#manufactureButton").addClass("active");
+                           $("#supplyChainTitle a").click(function () {
+                                var ele= $(this);
+                                if($(this).attr("id") === "material") {
+                                    $("#supplyChain-content img").attr("src", "img/material.png");
+                                }
+                                else if($(this).attr("id") === "plan") {
+                                    $("#supplyChain-content img").attr("src", "img/plan.png");
+                                }
+                                else if($(this).attr("id") === "part") {
+                                    $("#supplyChain-content img").attr("src", "img/part.png");
+                                }
+                                else if($(this).attr("id") === "capacity") {
+                                    $("#supplyChain-content img").attr("src", "img/capacity.png");
+                                }
+                                else{
+                                    $("#supplyChain-content img").attr("src", "img/quality.png");
+                                }
+                            })
                        }
             });
         }
         else if($(this).parent().attr("id") === "manufactureServiceButton"){
-
+            console.log("sd");
             $.ajax({
               type: "GET",
               url: servicesHtml,
@@ -120,17 +173,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
         else{
             $.ajax({
               type: "GET",
-              url: contactHtml,
+              url: productAndservicesHtml,
               dataType: "html",
               success: function(responseText){
                           document.querySelector("#main-content")
                           .innerHTML = responseText;
                            $("#collapsable-nav li.active").removeClass("active");
                            ele.parent().addClass("active");
+                           $('#myCarousel').carousel();
                        }
             });
         }
     })
+
+
 });
 
 })(window);
