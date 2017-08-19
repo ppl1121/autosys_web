@@ -23,12 +23,20 @@ var showLoading = function (selector) {
 };
 
 
-// Remove the class 'active' from home
-var switchMenuToActive = function () {
-  // Remove 'active' from home button
-  var classes = document.querySelector("#navHomeButton").className;
-  classes = classes.replace(new RegExp("active", "g"), "");
-  document.querySelector("#navHomeButton").className = classes;
+// // Remove the class 'active' from home
+// var switchMenuToActive = function () {
+//   // Remove 'active' from home button
+//   var classes = document.querySelector("#navHomeButton").className;
+//   classes = classes.replace(new RegExp("active", "g"), "");
+//   document.querySelector("#navHomeButton").className = classes;
+// };
+
+global.soloCollapse = function (element) {
+  var collapsed = $("div.in");
+  var collapsedId = collapsed.attr("id");
+  if(collapsed.length !==0 && collapsed.attr("id").replace(/content/, "control") !== $(element).attr("id")){ 
+      collapsed.collapse('hide');
+  } 
 };
 
 // On page load (before images or CSS)
@@ -68,37 +76,37 @@ document.addEventListener("DOMContentLoaded", function (event) {
                        }
             });
         }
-        else if($(this).parent().attr("id") === "manufactureButton"){
-            $.ajax({
-              type: "GET",
-              url: manufactureManagementHtml,
-              dataType: "html",
-              success: function(responseText){
-                          document.querySelector("#main-content")
-                          .innerHTML = responseText;
-                           $("#collapsable-nav li.active").removeClass("active");
-                           $("#manufactureButton").addClass("active");
-                           $("#supplyChainTitle a").click(function () {
-                                var ele= $(this);
-                                if($(this).attr("id") === "material") {
-                                    $("#supplyChain-content img").attr("src", "img/material.png");
-                                }
-                                else if($(this).attr("id") === "plan") {
-                                    $("#supplyChain-content img").attr("src", "img/plan.png");
-                                }
-                                else if($(this).attr("id") === "part") {
-                                    $("#supplyChain-content img").attr("src", "img/part.png");
-                                }
-                                else if($(this).attr("id") === "capacity") {
-                                    $("#supplyChain-content img").attr("src", "img/capacity.png");
-                                }
-                                else{
-                                    $("#supplyChain-content img").attr("src", "img/quality.png");
-                                }
-                            })
-                       }
-            });
-        }
+        // else if($(this).parent().attr("id") === "manufactureButton"){
+        //     $.ajax({
+        //       type: "GET",
+        //       url: manufactureManagementHtml,
+        //       dataType: "html",
+        //       success: function(responseText){
+        //                   document.querySelector("#main-content")
+        //                   .innerHTML = responseText;
+        //                    $("#collapsable-nav li.active").removeClass("active");
+        //                    $("#manufactureButton").addClass("active");
+        //                    $("#supplyChainTitle a").click(function () {
+        //                         var ele= $(this);
+        //                         if($(this).attr("id") === "material") {
+        //                             $("#supplyChain-content img").attr("src", "img/material.png");
+        //                         }
+        //                         else if($(this).attr("id") === "plan") {
+        //                             $("#supplyChain-content img").attr("src", "img/plan.png");
+        //                         }
+        //                         else if($(this).attr("id") === "part") {
+        //                             $("#supplyChain-content img").attr("src", "img/part.png");
+        //                         }
+        //                         else if($(this).attr("id") === "capacity") {
+        //                             $("#supplyChain-content img").attr("src", "img/capacity.png");
+        //                         }
+        //                         else{
+        //                             $("#supplyChain-content img").attr("src", "img/quality.png");
+        //                         }
+        //                     });
+        //                }
+        //     });
+        // }
         else if($(this).parent().attr("id") === "manufactureChainButton"){
             $.ajax({
               type: "GET",
@@ -109,29 +117,77 @@ document.addEventListener("DOMContentLoaded", function (event) {
                           .innerHTML = responseText;
                            $("#collapsable-nav li.active").removeClass("active");
                            $("#manufactureButton").addClass("active");
+                           $("#supplyChain-material").hide();
+                           $("#supplyChain-part").hide();
+                           $("#supplyChain-capacity").hide();
+                           $("#supplyChain-quality").hide();
+                           $("#supplyChain-pilot").hide();
+                           $("#supplyChain-batch").hide();
                            $("#supplyChainTitle a").click(function () {
                                 var ele= $(this);
                                 if($(this).attr("id") === "material") {
-                                    $("#supplyChain-content img").attr("src", "img/material.png");
+                                    $("#supplyChain-content").hide();
+                                    $("#supplyChain-part").hide();
+                                    $("#supplyChain-capacity").hide();
+                                    $("#supplyChain-quality").hide();
+                                    $("#supplyChain-pilot").hide();
+                                    $("#supplyChain-batch").hide();
+                                    $("#supplyChain-material").show();
                                 }
                                 else if($(this).attr("id") === "plan") {
                                     $("#supplyChain-content img").attr("src", "img/plan.png");
                                 }
                                 else if($(this).attr("id") === "part") {
-                                    $("#supplyChain-content img").attr("src", "img/part.png");
+                                  console.log("df");
+                                    $("#supplyChain-content").hide();
+                                    $("#supplyChain-material").hide();
+                                    $("#supplyChain-capacity").hide();
+                                    $("#supplyChain-quality").hide();
+                                    $("#supplyChain-pilot").hide();
+                                    $("#supplyChain-batch").hide();
+                                    $("#supplyChain-part").show();
                                 }
                                 else if($(this).attr("id") === "capacity") {
-                                    $("#supplyChain-content img").attr("src", "img/capacity.png");
+                                    $("#supplyChain-content").hide();
+                                    $("#supplyChain-material").hide();
+                                    $("#supplyChain-part").hide();
+                                    $("#supplyChain-quality").hide();
+                                    $("#supplyChain-pilot").hide();
+                                    $("#supplyChain-batch").hide();
+                                    $("#supplyChain-capacity").show();
                                 }
-                                else{
-                                    $("#supplyChain-content img").attr("src", "img/quality.png");
+                                else if($(this).attr("id") === "quality") {
+                                    $("#supplyChain-content").hide();
+                                    $("#supplyChain-material").hide();
+                                    $("#supplyChain-part").hide();
+                                    $("#supplyChain-capacity").hide();
+                                    $("#supplyChain-pilot").hide();
+                                    $("#supplyChain-batch").hide();
+                                    $("#supplyChain-quality").show();
                                 }
-                            })
+                                else if($(this).attr("id") === "pilot") {
+                                    $("#supplyChain-content").hide();
+                                    $("#supplyChain-material").hide();
+                                    $("#supplyChain-part").hide();
+                                    $("#supplyChain-capacity").hide();
+                                    $("#supplyChain-quality").hide();
+                                    $("#supplyChain-batch").hide();
+                                    $("#supplyChain-pilot").show();
+                                }
+                                else {
+                                    $("#supplyChain-content").hide();
+                                    $("#supplyChain-material").hide();
+                                    $("#supplyChain-part").hide();
+                                    $("#supplyChain-capacity").hide();
+                                    $("#supplyChain-quality").hide();
+                                    $("#supplyChain-pilot").hide();
+                                    $("#supplyChain-batch").show();
+                                }
+                            });
                        }
             });
         }
         else if($(this).parent().attr("id") === "manufactureServiceButton"){
-            console.log("sd");
             $.ajax({
               type: "GET",
               url: servicesHtml,
@@ -170,7 +226,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                        }
             });
         } 
-        else{
+        else if($(this).parent().attr("id") === "navServicesButton") {
             $.ajax({
               type: "GET",
               url: productAndservicesHtml,
@@ -184,9 +240,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
                        }
             });
         }
+        else{
+            $("#collapsable-nav li.active").removeClass("active");
+            $("#manufactureButton").addClass("active");
+        }
     })
 
 
 });
 
 })(window);
+
+
